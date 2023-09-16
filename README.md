@@ -1,6 +1,6 @@
-# Scrolller scrapper
+# Scrolller scraper
 
-This script is designed to scrape images and videos from [scrolller.com](https://scrolller.com/), a website that aggregates content from various subreddits. It provides you with the flexibility to scrape media from specific subreddits, the discover page, or your following page (requires login). You can also filter media to scrape only images, videos, or videos with sound.
+This script is designed to scrape images and videos from [scrolller.com](https://scrolller.com/), a website that aggregates content from various subreddits. It provides you with the flexibility to scrape media from specific subreddits, categories, the discover page, or your following page (requires login). You can also filter media to scrape only images, videos, or videos with sound.
 
 ## Requirements
 
@@ -23,7 +23,7 @@ pip install requests tqdm
 3. Run the script with the desired options. You can see the available options by running:
 
 ```bash
-python scrapper.py --help
+python scrolller_scraper.py --help
 ```
 
 4. The script will scrape and download media based on your specified options.
@@ -33,6 +33,7 @@ python scrapper.py --help
 Here are the available options for the script:
 
 - `--subreddits`: Specify subreddits to scrape from (multiple subreddits can be provided, separated by commas).
+- `--categories`: Specify categories to scrape from (will download "amount" of media files for each subreddit in categories). 'all' - download from all categories (not recommended).
 - `--discover`: Enable scraping from the discover page.
 - `--following`: Enable scraping from the following page (requires login).
 - `--only-video`: Scrape only videos.
@@ -40,6 +41,7 @@ Here are the available options for the script:
 - `--only-img`: Scrape only images.
 - `--low-quality`: Download videos and images in low quality (much faster)
 - `--subfolders`: Organize scraped media into separate subfolders for each source (subreddits, discover, following).
+- `--is-downloaded-check`: Check if image already exist in output folder, don't download it again.
 - `--output-path`: Specify the output directory where the scraped media will be saved (default is "./media").
 - `--username`: Your username for login (optional, only for following page).
 - `--password`: Your password for login (optional, only for following page).
@@ -50,7 +52,8 @@ Here are the available options for the script:
 - `--req-limit`: Media limit for each API request (default is 100).
 - `--item-limit`: Maximum media limit for each subreddit on the discover or following page (default is 10).
 - `--threads`: Number of threads for downloading media (default is 5).
-- `--user-agent`: User agent header
+- `--maxfilename`: Max filename length (without extension, default is 100).
+- `--user-agent`: User agent header.
 - `--no-output`: Disable all output except for errors.
 
 ## Examples
@@ -79,6 +82,11 @@ python scrolller_scraper.py --subreddits cats,dogs --amount 50 --output-path ./m
 5. Silently download 10 videos from cats subreddit and discovery page:
 ```bash
 python scrolller_scraper.py --subreddits cats --discover --amount 10 --only-video --no-output
+```
+
+6. Download 10 images from each subreddit of "asian" and "guns" categories, organize them in subfolders:
+```bash
+python scrolller_scraper.py --categories asian,guns --amount 10 --only-img --subfolders
 ```
 
 ## License
