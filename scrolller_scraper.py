@@ -425,7 +425,8 @@ def process_all(
     for option in options:
         if option == "discover" or option == "following":
             out = os.path.join(output_path, option) if subfolders else output_path
-            print(f"\n\n*** Processing '{option}' ***")
+            if output:
+                print(f"\n\n*** Processing '{option}' ***")
             downloaded += process_one(option)
             continue
 
@@ -433,7 +434,8 @@ def process_all(
             continue
 
         out_subfolder = os.path.join(output_path, option[0]) if subfolders else output_path
-        print(f"\n\n*** Processing category '{option[0]}' ***")
+        if output:
+            print(f"\n\n*** Processing category '{option[0]}' ***")
         for subreddit in option[1]:
             out = os.path.join(out_subfolder, subreddit) if subfolders else output_path
             downloaded += process_one(subreddit)
